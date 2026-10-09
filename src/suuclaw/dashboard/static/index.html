@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="tide">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#edf4f7">
+  <meta name="description" content="SuuClaw 本地智能工作台。看见计划、执行与验证，让每一步都有迹可循。">
+  <title>SuuClaw · 工作台</title>
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/architecture.css">
+  <script type="module" src="/static/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到工作区</a>
+  <svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-flow" viewBox="0 0 24 24"><rect x="8" y="3" width="8" height="5" rx="1.5"/><rect x="2" y="16" width="7" height="5" rx="1.5"/><rect x="15" y="16" width="7" height="5" rx="1.5"/><path d="M12 8v4M5.5 16v-4h13v4"/></symbol>
+    <symbol id="i-tools" viewBox="0 0 24 24"><path d="m14 6 4 4M5 19l-1-4L15 4l5 5L9 20zM4 5l2-2 3 3-2 2zM14 17l4 4 3-3-4-4"/></symbol>
+    <symbol id="i-files" viewBox="0 0 24 24"><path d="M3 7V5a1 1 0 0 1 1-1h5l2 3h9a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z"/><path d="M3 9h18"/></symbol>
+    <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 11a9 9 0 1 1 2 7M3 4v7h7M12 7v5l3 2"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11a8 8 0 0 1-8 8H9l-6 3 1-7a8 8 0 1 1 17-4Z"/><path d="M8 10h8M8 14h4"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m12 4 8 9M12 4l-8 9M12 4v17"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m12 3 10 18H2L12 3ZM12 9v5M12 17v.1"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 9a8 8 0 0 0-14-4L3 8m0-6v6h6M4 15a8 8 0 0 0 14 4l3-3m0 6v-6h-6"/></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 6-6 6 6 6M16 6l6 6-6 6M14 3l-4 18"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 3 6v5c0 5 4 8 9 11 5-3 9-6 9-11V6l-9-3Z"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 2v3m6-3v3M9 19v3m6-3v3M2 9h3m-3 6h3m14-6h3m-3 6h3"/></symbol>
+    <symbol id="i-memory" viewBox="0 0 24 24"><path d="M5 5h14v4H5zM5 15h14v4H5zM8 9v6m8-6v6M8 7h.1M8 17h.1"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V3H3v13h5"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-4c-2-1-1-4 1-4h3a3 3 0 0 0 3-3c0-4-4-7-9-7Z"/><path d="M6.5 11h.1M9 7h.1M14 6.5h.1M17 9h.1"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v.1"/></symbol>
+  </svg>
+
+  <div class="app-shell" id="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="主导航">
+      <a class="brand" href="/" aria-label="SuuClaw 工作台">
+        <img class="brand-mark" src="/static/suuclaw-mark.svg" alt="" width="43" height="43">
+        <span class="wordmark">Suu<span>Claw</span><small>你的想法，有了行动力。</small></span>
+      </a>
+      <button class="new-session primary-button" id="new-session"><svg class="icon"><use href="#i-plus"/></svg>新建对话<span class="keyboard-hint">N</span></button>
+      <nav class="main-nav" aria-label="工作台面板">
+        <button class="nav-item active" data-view="workflow" aria-current="page"><svg class="icon"><use href="#i-flow"/></svg>工作流<span class="nav-live" id="nav-live" hidden></span></button>
+        <button class="nav-item" data-view="tools"><svg class="icon"><use href="#i-tools"/></svg>工具箱<span class="nav-count" id="tool-count"></span></button>
+        <button class="nav-item" data-view="files"><svg class="icon"><use href="#i-files"/></svg>工作文件</button>
+        <button class="nav-item" data-view="history"><svg class="icon"><use href="#i-history"/></svg>执行记录</button>
+      </nav>
+      <div class="sessions-heading"><span>最近对话</span><button class="icon-button small" id="refresh-sessions" aria-label="刷新对话列表" title="刷新对话列表"><svg class="icon"><use href="#i-refresh"/></svg></button></div>
+      <div class="sessions-list" id="sessions-list"><p class="sidebar-empty">正在读取对话…</p></div>
+      <div class="sidebar-bottom">
+        <details class="theme-picker" id="theme-picker">
+          <summary><svg class="icon"><use href="#i-palette"/></svg><span id="theme-name">潮汐</span><span class="theme-swatches" aria-hidden="true"><i></i><i></i><i></i></span></summary>
+          <div class="theme-options" role="group" aria-label="界面风格">
+            <p>换一种工作心情</p>
+            <button data-theme-choice="tide" class="theme-option" aria-pressed="true"><span class="theme-preview tide-preview"><i></i><i></i><i></i></span><span><strong>潮汐</strong><small>清透、专注、轻盈</small></span><svg class="icon theme-check"><use href="#i-check"/></svg></button>
+            <button data-theme-choice="abyss" class="theme-option" aria-pressed="false"><span class="theme-preview abyss-preview"><i></i><i></i><i></i></span><span><strong>深航</strong><small>深海里的控制室</small></span><svg class="icon theme-check"><use href="#i-check"/></svg></button>
+            <button data-theme-choice="bloom" class="theme-option" aria-pressed="false"><span class="theme-preview bloom-preview"><i></i><i></i><i></i></span><span><strong>花间</strong><small>柔和、有想象力</small></span><svg class="icon theme-check"><use href="#i-check"/></svg></button>
+          </div>
+        </details>
+        <button class="workspace-button" id="workspace-info" title="查看本地工作区与模型信息"><span class="workspace-icon"><svg class="icon"><use href="#i-shield"/></svg></span><span><strong>本地工作空间</strong><small id="workspace-label">连接中</small></span><svg class="icon"><use href="#i-chevron"/></svg></button>
+      </div>
+    </aside>
+    <button id="sidebar-scrim" class="sidebar-scrim" aria-label="收起导航" hidden></button>
+
+    <main class="main-content" id="main-content" tabindex="-1">
+      <header class="workspace-header">
+        <div class="header-title"><button class="icon-button mobile-menu" id="menu-toggle" aria-label="展开导航" aria-expanded="false"><svg class="icon"><use href="#i-menu"/></svg></button><span class="breadcrumb">工作台</span><span class="breadcrumb-slash">/</span><h1 id="page-title">工作流</h1></div>
+        <div class="header-actions"><span class="connection-status" id="connection-status"><i></i><span>连接中</span></span><button class="icon-button" id="chat-toggle" aria-label="展开或收起对话" aria-expanded="true" title="展开或收起对话"><svg class="icon"><use href="#i-chat"/></svg></button></div>
+      </header>
+      <div class="config-banner" id="config-banner" hidden><svg class="icon"><use href="#i-info"/></svg><span>先连接一个模型，即可开始工作。</span><button id="show-setup" class="text-button">查看配置方法</button></div>
+      <div class="main-scroll" id="main-scroll">
+        <section id="view-workflow" class="view active" aria-label="工作流">
+          <div class="view-heading"><div><p class="section-kicker">看见每一步</p><h2 id="run-heading">给想法一条行动的路径。</h2><p class="view-description" id="run-description">发起一个任务，观察 SuuClaw 如何理解、规划、执行与验证。</p></div><span class="run-status status-idle" id="run-status"><i></i>准备就绪</span></div>
+          <div class="run-toolbar"><div class="run-summary" id="run-summary"><span><svg class="icon"><use href="#i-flow"/></svg><span id="graph-mode">真实工作流结构</span></span><span id="run-elapsed" hidden></span><span id="run-tools" hidden></span></div><label class="run-select-label" for="run-select"><span class="sr-only">选择本轮或历史执行</span><select id="run-select"><option value="">尚无执行记录</option></select></label></div>
+          <div class="workflow-perspectives" role="group" aria-label="工作流视图">
+            <button id="perspective-architecture" aria-pressed="true" aria-controls="architecture-panel"><strong>Architecture</strong><span>系统全景</span></button>
+            <button id="perspective-workflow" aria-pressed="false" aria-controls="execution-panel"><strong>Workflow</strong><span>执行路径</span></button>
+            <p id="perspective-description">入口、记忆与工具如何协作</p>
+          </div>
+          <section id="architecture-panel" class="graph-panel architecture-panel" aria-labelledby="architecture-title">
+            <div class="panel-heading graph-heading"><div><h3 id="architecture-title">Agent Architecture</h3><span>智能体系统全景</span></div><div class="graph-actions"><button class="icon-button small" id="architecture-fullscreen" aria-expanded="false" title="展开系统全景" aria-label="展开系统全景"><svg class="icon"><use href="#i-expand"/></svg></button></div></div>
+            <div id="architecture-root"></div>
+          </section>
+          <section id="execution-panel" class="graph-panel" aria-labelledby="graph-title" hidden>
+            <div class="panel-heading graph-heading"><div><h3 id="graph-title">Agent Workflow</h3><span id="graph-subtitle">智能体执行图</span></div><div class="graph-actions"><div class="graph-view-switch" role="group" aria-label="图展示层级"><button id="graph-overview" aria-pressed="true">主路径</button><button id="graph-complete" aria-pressed="false">完整拓扑</button></div><button class="icon-button small" id="graph-fit" title="适应画布" aria-label="适应画布"><svg class="icon"><use href="#i-expand"/></svg></button><button class="icon-button small" id="graph-fullscreen" title="展开工作流" aria-label="展开工作流"><svg class="icon"><use href="#i-flow"/></svg></button></div></div>
+            <div class="execution-focus" id="execution-focus"><span class="focus-signal"></span><div><strong id="focus-title">Ready</strong><span id="focus-description">等待任务，节点会按实际执行点亮</span></div><span id="focus-counter">本轮尚未开始</span></div>
+            <div class="graph-viewport" id="graph-viewport"><div class="graph-loading" id="graph-loading"><span class="loading-orbit"></span><p>正在读取工作流结构</p></div><svg id="workflow-graph" class="workflow-graph" aria-label="SuuClaw 智能体执行图，节点可查看详情" role="group"></svg></div>
+            <div class="graph-footer"><div class="graph-legend"><span><i class="legend-idle"></i>未经过</span><span><i class="legend-active"></i>正在执行</span><span><i class="legend-complete"></i>已完成</span><span><i class="legend-recent"></i>最近经过</span><span><i class="legend-failed"></i>需关注</span></div><span class="graph-hint">虚线表示按条件路由或委派</span></div>
+            <div class="execution-path" id="execution-path" aria-label="实际执行顺序"><span class="path-caption">实际路径</span><div id="path-steps"><span class="path-placeholder">任务开始后显示，不预设执行顺序</span></div></div>
+            <details class="topology-details" id="topology-details"><summary><span>连接与路由条件</span><span id="topology-count"></span><svg class="icon"><use href="#i-chevron"/></svg></summary><div id="topology-connections"></div></details>
+          </section>
+          <section class="inspector-panel" id="inspector-panel" hidden aria-label="节点详情"><div class="panel-heading"><div><span class="inspector-icon" id="inspector-icon"></span><h3 id="inspector-title"></h3><span class="mini-badge" id="inspector-status"></span></div><button class="icon-button small" id="close-inspector" aria-label="收起节点详情"><svg class="icon"><use href="#i-close"/></svg></button></div><div class="inspector-content" id="inspector-content"></div></section>
+          <section class="activity-panel" aria-label="运行详情"><div class="activity-tabs" role="tablist" aria-label="运行信息"><button class="active" data-tab="events" id="tab-events" role="tab" aria-selected="true" aria-controls="activity-content">实时动态<span id="events-count">0</span></button><button data-tab="plan" id="tab-plan" role="tab" aria-selected="false" aria-controls="activity-content">任务计划<span id="plan-count">0</span></button><button data-tab="verification" id="tab-verification" role="tab" aria-selected="false" aria-controls="activity-content">验证结果<span id="verification-count">0</span></button><div class="activity-tab-spacer"></div><label class="event-filter-label" id="event-filter-label"><span class="sr-only">动态类型</span><select id="event-filter"><option value="all">所有动态</option><option value="tools">工具调用</option><option value="nodes">节点变化</option><option value="memory">上下文记忆</option><option value="errors">需要关注</option></select></label></div><div class="activity-content" id="activity-content" role="tabpanel" aria-labelledby="tab-events"></div></section>
+        </section>
+
+        <section id="view-tools" class="view" hidden aria-label="工具箱"><div class="view-heading"><div><p class="section-kicker">行动的能力</p><h2>小工具，做具体的事。</h2><p class="view-description">当前工作流可调用的工具。运行状态会随任务同步更新。</p></div></div><label class="search-input"><svg class="icon"><use href="#i-search"/></svg><input id="tool-search" type="search" placeholder="查找工具、用途…" autocomplete="off"><kbd>/</kbd></label><div class="tools-list" id="tools-list"></div></section>
+
+        <section id="view-files" class="view" hidden aria-label="工作文件"><div class="view-heading"><div><p class="section-kicker">留下来的成果</p><h2>任务产物，都在这里。</h2><p class="view-description">查看当前对话工作区中的真实文件，预览内容或下载。</p></div><button class="secondary-button" id="refresh-files"><svg class="icon"><use href="#i-refresh"/></svg>刷新</button></div><div class="file-location" id="file-location"></div><div class="files-list" id="files-list"></div><section class="file-preview" id="file-preview" hidden aria-label="文件预览"><div class="panel-heading"><h3 id="file-preview-name"></h3><div><a class="icon-button small" id="file-download" title="下载文件" aria-label="下载文件"><svg class="icon"><use href="#i-download"/></svg></a><button class="icon-button small" id="close-file" aria-label="关闭预览"><svg class="icon"><use href="#i-close"/></svg></button></div></div><p class="file-notice" id="file-notice" hidden></p><pre id="file-content"></pre></section></section>
+
+        <section id="view-history" class="view" hidden aria-label="执行记录"><div class="view-heading"><div><p class="section-kicker">每次行动，都有来路</p><h2>回到任何一次执行。</h2><p class="view-description">查看本次对话的运行记录，重新检查过程与结果。</p></div></div><div id="history-list" class="history-list"></div></section>
+        <footer class="workspace-footer"><img src="/static/suuclaw-mark.svg" alt="" width="17" height="17"><span>SuuClaw</span><span>在本地，认真做事。</span></footer>
+      </div>
+    </main>
+
+    <div class="dock-resizer" id="dock-resizer" role="separator" aria-orientation="vertical" aria-label="调整对话栏宽度" aria-valuemin="320" aria-valuemax="640" aria-valuenow="390" tabindex="0"></div>
+    <aside class="chat-dock" id="chat-dock" aria-label="与 SuuClaw 对话">
+      <header class="chat-header"><div class="chat-identity"><img src="/static/suuclaw-mark.svg" alt="" width="29" height="29"><div><h2>SuuClaw</h2><span id="chat-presence">准备接住你的想法</span></div></div><div class="chat-actions"><button class="icon-button small" id="chat-new" title="新建对话" aria-label="新建对话"><svg class="icon"><use href="#i-plus"/></svg></button><button class="icon-button small" id="chat-close" title="收起对话" aria-label="收起对话"><svg class="icon"><use href="#i-close"/></svg></button></div></header>
+      <div class="chat-messages" id="chat-messages" aria-label="对话内容" tabindex="0"><div class="chat-welcome" id="chat-welcome"><div class="welcome-mark"><img src="/static/suuclaw-mark.svg" alt="" width="92" height="92"><span class="welcome-mark-orbit"></span></div><h3>嗨，今天一起做什么？</h3><p>一个想法、一件小事，<br>或一个值得认真拆解的任务。</p><div class="starter-prompts"><span>可以从这些示例开始</span><button data-prompt="介绍一下你的能力，以及你会如何规划、执行和验证一个任务。"><svg class="icon"><use href="#i-spark"/></svg><span>先认识一下 SuuClaw</span><svg class="icon"><use href="#i-chevron"/></svg></button><button data-prompt="查看当前工作目录，列出已有文件并说明它们的用途。"><svg class="icon"><use href="#i-files"/></svg><span>看看工作区里有什么</span><svg class="icon"><use href="#i-chevron"/></svg></button><button data-prompt="在工作区创建一个带优先级的待办事项网页，完成后检查 HTML 和交互，并告诉我如何打开。"><svg class="icon"><use href="#i-code"/></svg><span>做一个小小的待办网页</span><svg class="icon"><use href="#i-chevron"/></svg></button></div></div></div>
+      <div class="chat-live" id="chat-live" hidden><span class="live-dot"></span><span id="chat-live-text">正在思考</span><button class="text-button" id="jump-live">查看过程</button></div>
+      <form class="composer" id="composer"><label class="sr-only" for="message-input">输入任务或问题</label><textarea id="message-input" disabled placeholder="把想法交给 SuuClaw…" rows="3" maxlength="16000"></textarea><div class="composer-bottom"><span class="composer-model" id="composer-model"><svg class="icon"><use href="#i-cpu"/></svg><span>读取模型中</span></span><button class="send-button" id="send-button" type="submit" title="发送任务" aria-label="发送任务" disabled><svg class="icon"><use href="#i-send"/></svg></button></div><p id="composer-error" class="composer-error" hidden></p></form>
+      <div class="composer-hint"><span>Enter 发送<span class="hint-divider">/</span>Shift + Enter 换行</span><span class="local-label"><i></i>本地运行</span></div>
+    </aside>
+  </div>
+  <div class="toast-region" id="toast-region" role="status" aria-live="polite"></div>
+  <div class="sr-only" id="screen-announcement" role="status" aria-live="polite"></div>
+  <dialog class="info-dialog" id="info-dialog"><header><h2 id="dialog-title">工作空间</h2><button class="icon-button" id="close-dialog" aria-label="关闭弹窗"><svg class="icon"><use href="#i-close"/></svg></button></header><div id="dialog-content"></div></dialog>
+</body>
+</html>

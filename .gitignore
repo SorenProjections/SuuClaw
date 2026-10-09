@@ -1,0 +1,42 @@
+# secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
+*.key
+*credentials*.json
+*secrets*.json
+
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.uv-cache/
+.test-tmp/
+.suuclaw/
+_wheels*/
+.workbuddy/
+/_*.py
+/_*.txt
+
+# default agent sandbox (created on first run)
+workspace/
+sandbox/
+
+# editors / os
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

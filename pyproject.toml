@@ -1,0 +1,59 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "suuclaw"
+version = "0.1.0"
+description = "A local agent workspace with a live workflow dashboard, CLI, and Feishu gateway."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Soren" }]
+keywords = ["agent", "dashboard", "workflow", "cli", "langchain", "tools"]
+
+dependencies = [
+    "typer>=0.12",
+    "rich>=13.8",
+    "langchain-core>=0.3",
+    "langchain-openai>=0.2",
+    "langgraph>=0.2",
+    "python-dotenv>=1.0",
+    "pydantic>=2.6",
+]
+
+[project.optional-dependencies]
+# The searchAgent's only tool. Optional on purpose: the core plan / act / verify
+# workflow runs without it, and web_search reports a readable
+# "tavily-python is not installed" instead of failing the run.
+search = ["tavily-python>=0.3"]
+# Feishu Bot long-connection gateway. Kept optional so the core CLI does not
+# pay the SDK's sizeable import/startup cost.
+feishu = ["lark-oapi>=1.7.3,<2"]
+# The interactive front end (`suuclaw --tui`). Optional on purpose, and the
+# same rule applies one level up: the workflow and the one-shot CLI never import
+# it, so a plain install stays free of a full TUI toolkit.
+tui = ["textual>=0.80"]
+
+[dependency-groups]
+# Local quality gates. uv sync/run includes the dev group by default, while
+# package consumers do not receive test and lint tooling as runtime extras.
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[project.scripts]
+suuclaw = "suuclaw.entrypoints:main"
+suuclaw-feishu = "suuclaw.entrypoints:feishu_main"
+suuclaw-dashboard = "suuclaw.entrypoints:dashboard_main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/suuclaw"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
