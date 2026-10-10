@@ -4,6 +4,8 @@
 
 # SuuClaw
 
+[MIT 许可证](LICENSE) · [贡献指南](CONTRIBUTING.md) · [安全说明](SECURITY.md) · [更新记录](CHANGELOG.md)
+
 **把任务交给 Agent，把每一步留在视野里。**
 
 SuuClaw 是一个本地 Agent 工作台：用右侧聊天发起任务，在中间面板查看规划、委派、工具调用和验证结果。浏览器、终端和飞书入口共用同一套任务引擎。任务有明确的工作区，执行有可追踪的事件，结果经过独立验证。
@@ -16,10 +18,10 @@ SuuClaw 提供浏览器工作台、飞书机器人和隔离会话工作区。
 
 ## 启动浏览器工作台
 
-推荐使用 [uv](https://docs.astral.sh/uv/)。在项目目录中安装依赖：
+需要 Python 3.10 或更高版本，推荐使用 [uv](https://docs.astral.sh/uv/)。下载或克隆本仓库后，在项目目录中安装依赖：
 
 ```bash
-uv sync
+uv sync --locked
 ```
 
 首次使用时，将 `.env.example` 复制为 `.env`，填入模型配置；已有 `.env` 请保留。最小配置：
@@ -125,7 +127,7 @@ CLI 退出码：`0` 表示通过验证；`1` 表示没有满足验收条件；`2
 
 ```bash
 uv sync --extra tui
-uv run suuclaw --tui --workspace ./sandbox
+uv run --extra tui suuclaw --tui --workspace ./sandbox
 ```
 
 TUI 包含 SuuClaw 动态字标、会话状态、计划、执行日志与输入框。`Enter` 提交，`Ctrl+L` 清空日志，`Ctrl+C` 退出。需要确认的风险命令在终端弹窗中处理。终端必须支持交互；流水线输出请使用普通 CLI。
@@ -150,10 +152,10 @@ SUUCLAW_FEISHU_APPROVAL_MODE=deny
 先校验配置，再启动：
 
 ```bash
-uv run suuclaw-feishu --check
-uv run suuclaw-feishu
+uv run --extra feishu suuclaw-feishu --check
+uv run --extra feishu suuclaw-feishu
 # 等价入口：
-uv run python -m suuclaw.feishu
+uv run --extra feishu python -m suuclaw.feishu
 ```
 
 默认接受私聊；群聊需要明确 @ 机器人。每个聊天 / 话题使用隔离工作区，同一会话的任务串行运行。状态面板持续展示路由、工作流阶段、工具调用、验证轮次与耗时，完成后发送完整答复。
@@ -228,15 +230,24 @@ src/suuclaw/
 
 `.env` 从项目根目录加载，已有进程环境变量优先。模型相关配置包括 `OPENAI_API_KEY`、`OPENAI_MODEL`、`OPENAI_BASE_URL`、`OPENAI_TIMEOUT` 和 `OPENAI_MAX_RETRIES`。网页检索需要 `TAVILY_API_KEY` 与 `uv sync --extra search`。
 
-命令与 Python 包统一使用 `suuclaw`。飞书设置使用 `SUUCLAW_FEISHU_*`，Shell 与上下文预算分别使用 `SUUCLAW_SHELL` 和 `SUUCLAW_CONTEXT_TOKEN_LIMIT`。运行数据保存在 `.suuclaw/`，浏览器数据保存在 `.suuclaw/dashboard/`。本版本不再读取旧品牌的环境变量或运行目录；升级时请使用当前配置名称，并重启 CLI、浏览器服务和飞书网关。
+命令与 Python 包统一使用 `suuclaw`。飞书设置使用 `SUUCLAW_FEISHU_*`，Shell 与上下文预算分别使用 `SUUCLAW_SHELL` 和 `SUUCLAW_CONTEXT_TOKEN_LIMIT`。运行数据保存在 `.suuclaw/`，浏览器数据保存在 `.suuclaw/dashboard/`。修改配置后请重启 CLI、浏览器服务和飞书网关。
 
 文件类工具会验证路径必须在工作区内。`bash` 是本机命令执行，工作区路径检查不等于操作系统沙箱；远程消息默认采用 `deny`，需要更强隔离时请在容器或虚拟机中运行。
 
 ## 开发验证
 
 ```bash
+uv sync --locked --all-extras
 uv run pytest
-uv run ruff check src tests
+uv run ruff check src tests scripts
+uv build
+uv run python scripts/check_distribution.py
 ```
 
-测试使用伪模型或注入的事件流验证路由、会话隔离、附件与界面服务。它们不会自动调用付费模型。浏览器空状态可直接查看；真实端到端任务需要有效的模型配置。
+测试使用伪模型或注入的事件流验证路由、会话隔离、附件与界面服务。它们不会自动调用付费模型。浏览器回归测试需要 Node.js；未安装时会跳过这部分测试，GitHub CI 会安装 Node.js 并运行完整测试。浏览器空状态可直接查看；真实端到端任务需要有效的模型配置。
+
+## 开源与贡献
+
+SuuClaw 使用 [MIT 许可证](LICENSE)，允许使用、修改和商业分发；分发时需保留版权声明和许可文本。单独安装的依赖遵循各自的许可证。
+
+欢迎通过 Issue 提出问题或建议，通过 Pull Request 贡献改进。开发约定见 [贡献指南](CONTRIBUTING.md)，漏洞报告见 [安全说明](SECURITY.md)，维护者发布步骤见 [发布指南](docs/releasing.md)。

@@ -1,0 +1,32 @@
+name: 缺陷报告
+description: 报告可复现的 SuuClaw 功能问题
+body:
+  - type: markdown
+    attributes:
+      value: |
+        不要上传真实密钥、完整 .env 或私人聊天记录。安全漏洞请先阅读 SECURITY.md。
+  - type: textarea
+    id: environment
+    attributes:
+      label: 运行环境
+      description: SuuClaw 版本、操作系统、Python 版本，以及浏览器 / CLI / 飞书入口。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 最小复现步骤
+      description: 使用虚构数据，列出启动命令和能重现问题的操作。
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 期望行为与实际行为
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 已脱敏的日志或截图
+      description: 去除密钥、私人路径和会话内容后再上传。
