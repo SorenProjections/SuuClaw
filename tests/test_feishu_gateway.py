@@ -112,10 +112,10 @@ class FeishuConfigTests(unittest.TestCase):
             self.assertTrue(config.deliver_artifacts)
             self.assertEqual(config.artifact_max_files, 8)
             self.assertEqual(config.artifact_max_megabytes, 25.0)
-            self.assertEqual(config.workspace, Path(tmp) / "workspace")
+            self.assertEqual(config.workspace, Path(tmp).resolve() / "workspace")
             self.assertEqual(
                 config.session_root,
-                Path(tmp) / "workspace" / ".suuclaw" / "feishu" / "conversations",
+                Path(tmp).resolve() / "workspace" / ".suuclaw" / "feishu" / "conversations",
             )
             self.assertNotIn("top-secret", repr(config))
 
@@ -137,7 +137,9 @@ class FeishuConfigTests(unittest.TestCase):
 class FeishuGatewayTests(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self):
         self.tmp = tempfile.TemporaryDirectory()
-        self.root = Path(self.tmp.name)
+        # Windows temporary directories can contain an 8.3 alias. The engine
+        # resolves workspaces, so fixtures should use the same canonical path.
+        self.root = Path(self.tmp.name).resolve()
 
     async def asyncTearDown(self):
         self.tmp.cleanup()
@@ -660,7 +662,7 @@ class FeishuGatewayTests(unittest.IsolatedAsyncioTestCase):
 class SuuClawAgentRunnerTests(unittest.TestCase):
     def test_runner_uses_deny_policy_and_returns_final_event(self):
         with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
+            root = Path(tmp).resolve()
             config = _config(root)
             seen = {}
 
@@ -687,7 +689,7 @@ class SuuClawAgentRunnerTests(unittest.TestCase):
 
     def test_runner_exposes_events_to_progress_callback(self):
         with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
+            root = Path(tmp).resolve()
             runner = SuuClawAgentRunner(_config(root), model=object())
             observed = []
 
